@@ -16,9 +16,11 @@
 class Ball{
     private:
     	std::vector<PV2D> vertex;
+    	int numSides;
     public:
         Ball();
         void drawBall();
+        void step();
 };
 
 #endif

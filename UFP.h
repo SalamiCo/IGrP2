@@ -21,6 +21,7 @@ class TGLForm2D : public TForm
 		void __fastcall FormResize(TObject *Sender);
 		void __fastcall FormPaint(TObject *Sender);
 		void __fastcall FormDestroy(TObject *Sender);
+        void __fastcall FormKeyPress(TObject *Sender, char &Key);
 
 	private:	// User declarations
  		HDC hdc;

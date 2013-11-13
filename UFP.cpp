@@ -114,3 +114,23 @@ void __fastcall TGLForm2D::FormDestroy(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
+{
+    switch(Key){
+        case 's':
+            // Step
+            ball.step();
+            break;
+    };
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(xLeft,xRight,yBot,yTop);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    GLScene();
+}
+//---------------------------------------------------------------------------
+
