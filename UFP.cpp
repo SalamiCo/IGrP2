@@ -64,56 +64,44 @@ void __fastcall TGLForm2D::SetPixelFormatDescriptor()
 void __fastcall TGLForm2D::FormResize(TObject *Sender)
 {
 
- //se actualiza puerto de vista y su radio
-  if ((ClientWidth<=1)||(ClientHeight<=1)){
-     ClientWidth=400;
-     ClientHeight=400;
-     RatioViewPort=1.0;
-     }
-  else RatioViewPort= (float)ClientWidth/(float)ClientHeight;
+    if ((ClientWidth<=1)||(ClientHeight<=1)){
+        ClientWidth=400;
+        ClientHeight=400;
+    }
 
-  glViewport(0,0,ClientWidth,ClientHeight);
+    glViewport(0,0,ClientWidth,ClientHeight);
 
-  // se actualiza el volumen de vista
-  // para que su radio coincida con ratioViewPort
-  GLfloat RatioVolVista=xRight/yTop;
+    centerX = (xLeft + xRight) / 2.0;
+    xLeft = centerX - (ClientWidth / 2.0);
+    xRight = centerX + (ClientWidth / 2.0);
 
-  if (RatioVolVista>=RatioViewPort){
-     //Aumentamos yTop-yBot
-     yTop= xRight/RatioViewPort;
-     yBot=-yTop;
-     }
-  else{
-     //Aumentamos xRight-xLeft
-     xRight=RatioViewPort*yTop;
-     xLeft=-xRight;
-     }
+    centerY = (yBot + yTop) / 2.0;
+    yBot = centerY - (ClientHeight / 2.0);
+    yTop = centerY + (ClientHeight / 2.0);
 
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluOrtho2D(xLeft,xRight, yBot,yTop);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(xLeft,xRight,yBot,yTop);
 
 
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  GLScene();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    GLScene();
 
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::GLScene()
 {
-glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-// comandos para dibujar la escena
-
-glFlush();
-SwapBuffers(hdc);
+    glFlush();
+    SwapBuffers(hdc);
 }
 
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::FormPaint(TObject *Sender)
 {
-  GLScene();
+    GLScene();
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::FormDestroy(TObject *Sender)
@@ -121,7 +109,6 @@ void __fastcall TGLForm2D::FormDestroy(TObject *Sender)
     ReleaseDC(Handle,hdc);
     wglMakeCurrent(NULL, NULL);
     wglDeleteContext(hrc);
-    // eliminar objetos creados
 }
 //---------------------------------------------------------------------------
 
