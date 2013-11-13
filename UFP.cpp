@@ -94,6 +94,8 @@ void __fastcall TGLForm2D::GLScene()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    ball.drawBall();
+
     glFlush();
     SwapBuffers(hdc);
 }

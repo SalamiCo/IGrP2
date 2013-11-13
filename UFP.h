@@ -11,6 +11,8 @@
 #include <gl\gl.h>
 #include <gl\glu.h>
 
+#include "Ball.h"
+
 //---------------------------------------------------------------------------
 class TGLForm2D : public TForm
 {
@@ -27,6 +29,8 @@ class TGLForm2D : public TForm
  		GLfloat RatioViewPort;
  		//Center of the scene
 		GLfloat centerX, centerY;
+		// Ball
+		Ball ball;
  		void __fastcall SetPixelFormatDescriptor();
  		void __fastcall GLScene();
 

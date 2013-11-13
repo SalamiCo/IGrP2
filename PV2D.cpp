@@ -33,5 +33,5 @@ void PV2D::setPointX(GLdouble x){
 	this->x = x;
 }
 void PV2D::setPointY(GLdouble y){
-	this->x = y;
+	this->y = y;
 }
