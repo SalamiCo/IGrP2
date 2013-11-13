@@ -4,11 +4,18 @@
 #include "Ball.h"
 
 Ball::Ball(){
-	numSides = 20;
 	Pencil pen;
-	GLdouble edge = 10;
-	PV2D p1 = PV2D(0, 0);
+	GLdouble edge = 30;
+	// Center
+	center = PV2D(0, 0);
+	// Radius
+	radius = 15;
+	numSides = 20;
 
+	// NO CONSIGO QUE SALGA CON EL CENTRO EN (0,0)
+	PV2D p1 = PV2D(edge/2, -radius * cos(0.157079));
+
+	// Generate the ball
 	vertex.push_back(p1);
 	pen.setPos(p1);
 	pen.setDir(0.31415);
@@ -21,6 +28,9 @@ Ball::Ball(){
 		pen.turn(0.31415);
 		pen.forward(edge);
 	}
+
+	// Movement vector
+	vectorMov = PV2D(1,1);
 }
 
 void Ball::drawBall(){
@@ -35,12 +45,11 @@ void Ball::drawBall(){
 }
 
 void Ball::step(){
-	// Sumar vector (1,1) -> diagonal
 	std::vector<PV2D>::iterator it;
 	it = vertex.begin();
 
 	for(int i=1;i<=numSides; ++i, ++it){
-		it->setPointX(it->getPointX() + 1);
-		it->setPointY(it->getPointY() + 1);
+		it->setPointX(it->getPointX() + vectorMov.getVectorX());
+		it->setPointY(it->getPointY() + vectorMov.getVectorY());
 	}
 }

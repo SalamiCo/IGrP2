@@ -17,6 +17,9 @@ class Ball{
     private:
     	std::vector<PV2D> vertex;
     	int numSides;
+    	GLdouble radius;
+    	PV2D center;
+    	PV2D vectorMov;
     public:
         Ball();
         void drawBall();
