@@ -12,6 +12,7 @@
 #include <gl\glu.h>
 
 #include "Ball.h"
+#include "Triangle.h"
 
 //---------------------------------------------------------------------------
 class TGLForm2D : public TForm
@@ -32,6 +33,8 @@ class TGLForm2D : public TForm
 		GLfloat centerX, centerY;
 		// Ball
 		Ball ball;
+		//Walls
+		Triangle tWalls;
  		void __fastcall SetPixelFormatDescriptor();
  		void __fastcall GLScene();
 

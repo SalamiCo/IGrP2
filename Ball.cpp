@@ -6,7 +6,7 @@
 Ball::Ball(){
 	// To calculate the edge size using radius => edge = 2 * radius * sin(0.157079)
 	Pencil pen;
-	GLdouble edge = 15.64;
+	GLfloat edge = 15.64;
 	// Center
 	center = PV2D(0, 0);
 	// Radius
@@ -30,7 +30,14 @@ Ball::Ball(){
 	}
 
 	// Movement vector
-	vectorMov = PV2D(1,1);
+	int randomX, randomY;
+	// initialize random seed
+  	srand (time(NULL));
+  	// Random number between -3 and 3 (creo...)
+	randomX = rand() % 3 - 1;
+	randomY = rand() % 3 - 1;
+	vectorMov.setVectorX((GLfloat) randomX);
+	vectorMov.setVectorY((GLfloat) randomY);
 }
 
 void Ball::drawBall(){

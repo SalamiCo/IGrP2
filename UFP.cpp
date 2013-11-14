@@ -27,8 +27,8 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     //inicialización del volumen de vista
-    xRight=200.0; xLeft=-xRight;
-    yTop=xRight; yBot=-yTop;
+    xRight=400.0; xLeft=-xRight;
+    yTop=250; yBot=-yTop;
     //Radio del volumen de vista == 1
 
     //inicialización del puerto de vista
@@ -65,8 +65,8 @@ void __fastcall TGLForm2D::FormResize(TObject *Sender)
 {
 
     if ((ClientWidth<=1)||(ClientHeight<=1)){
-        ClientWidth=400;
-        ClientHeight=400;
+        ClientWidth=800;
+        ClientHeight=500;
     }
 
     glViewport(0,0,ClientWidth,ClientHeight);
@@ -94,6 +94,7 @@ void __fastcall TGLForm2D::GLScene()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    tWalls.drawWalls(xRight,xLeft,yTop,yBot);
     ball.drawBall();
 
     glFlush();

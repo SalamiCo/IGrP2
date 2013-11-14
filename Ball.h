@@ -10,6 +10,9 @@
 
 #include <vector>
 #include <algorithm>
+#include <stdlib.h>
+#include <time.h>
+
 #include "PV2D.h"
 #include "Pencil.h"
 
@@ -17,7 +20,7 @@ class Ball{
     private:
     	std::vector<PV2D> vertex;
     	int numSides;
-    	GLdouble radius;
+    	GLfloat radius;
     	PV2D center;
     	PV2D vectorMov;
     public:

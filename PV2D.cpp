@@ -8,30 +8,37 @@ PV2D::PV2D(){
 	this->y = 0;
 }
 
-PV2D::PV2D(GLdouble x, GLdouble y){
+PV2D::PV2D(GLfloat x, GLfloat y){
 	this->x = x;
 	this->y = y;
 }
 
-GLdouble PV2D::getPointX(){
+GLfloat PV2D::getPointX(){
 	return this->x;
 }
 
-GLdouble PV2D::getPointY(){
+GLfloat PV2D::getPointY(){
 	return this->y;
 }
 
-GLdouble PV2D::getVectorX(){
+GLfloat PV2D::getVectorX(){
 	return this->x;
 }
 
-GLdouble PV2D::getVectorY(){
+GLfloat PV2D::getVectorY(){
 	return this->y;
 }
 
-void PV2D::setPointX(GLdouble x){
+void PV2D::setPointX(GLfloat x){
 	this->x = x;
 }
-void PV2D::setPointY(GLdouble y){
+void PV2D::setPointY(GLfloat y){
+	this->y = y;
+}
+
+void PV2D::setVectorX(GLfloat x){
+	this->x = x;
+}
+void PV2D::setVectorY(GLfloat y){
 	this->y = y;
 }
