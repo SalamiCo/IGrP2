@@ -4,16 +4,16 @@
 #include "Ball.h"
 
 Ball::Ball(){
+	// To calculate the edge size using radius => edge = 2 * radius * sin(0.157079)
 	Pencil pen;
-	GLdouble edge = 30;
+	GLdouble edge = 15.64;
 	// Center
 	center = PV2D(0, 0);
 	// Radius
-	radius = 15;
+	radius = 50;
 	numSides = 20;
 
-	// NO CONSIGO QUE SALGA CON EL CENTRO EN (0,0)
-	PV2D p1 = PV2D(edge/2, -radius * cos(0.157079));
+	PV2D p1 = PV2D(edge/2, -radius);
 
 	// Generate the ball
 	vertex.push_back(p1);
@@ -39,8 +39,11 @@ void Ball::drawBall(){
 
 	glBegin(GL_POLYGON);
 	for (int i=1; i<=numSides; ++i, ++it){
+		glColor3f(1.0, 1.0, 0.0);
 		glVertex2f(it->getPointX(), it->getPointY());
-	}	
+	}
+	glColor3f(0.38, 0.19, 0.0);
+	glVertex2f(center.getPointX(), center.getPointY());	
 	glEnd();
 }
 
@@ -52,4 +55,6 @@ void Ball::step(){
 		it->setPointX(it->getPointX() + vectorMov.getVectorX());
 		it->setPointY(it->getPointY() + vectorMov.getVectorY());
 	}
+	center.setPointX(center.getPointX() + vectorMov.getVectorX());
+	center.setPointY(center.getPointY() + vectorMov.getVectorY());
 }
