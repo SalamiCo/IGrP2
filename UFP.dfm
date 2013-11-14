@@ -1,9 +1,11 @@
 object GLForm2D: TGLForm2D
   Left = 214
   Top = 112
-  Width = 808
-  Height = 588
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Formulario Principal'
+  ClientHeight = 496
+  ClientWidth = 800
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
