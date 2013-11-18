@@ -1,18 +1,72 @@
-//Samuel Méndez Galán
-//Pedro Morgado Alarcón
+//Samuel MÃ©ndez GalÃ¡n
+//Pedro Morgado AlarcÃ³n
 
 #include "Triangle.h"
 
 Triangle::Triangle(){
+	PV2D v1,v2,v3;
+
 	this->p1 = PV2D();
 	this->p2 = PV2D();
 	this->p3 = PV2D();
+
+	// Normal vectors normalized
+	v1.setVectorX(p1.getPointX() - p2.getPointX());
+	v1.setVectorY(p1.getPointY() - p2.getPointY());
+	this->n1 = v1.normalVector().normalizeVector();
+
+	v2.setVectorX(p2.getPointX() - p3.getPointX());
+	v2.setVectorY(p2.getPointY() - p3.getPointY());
+	this->n2 = v2.normalVector().normalizeVector();
+
+	v3.setVectorX(p3.getPointX() - p1.getPointX());
+	v3.setVectorY(p3.getPointY() - p1.getPointY());
+	this->n3 = v3.normalVector().normalizeVector();
 }
 
 Triangle::Triangle(PV2D p1, PV2D p2, PV2D p3){
+	PV2D v1,v2,v3;
+
 	this->p1 = p1;
 	this->p2 = p2;
 	this->p3 = p3;
+
+	// Normal vectors normalized
+	v1.setVectorX(p1.getPointX() - p2.getPointX());
+	v1.setVectorY(p1.getPointY() - p2.getPointY());
+	this->n1 = v1.normalVector().normalizeVector();
+
+	v2.setVectorX(p2.getPointX() - p3.getPointX());
+	v2.setVectorY(p2.getPointY() - p3.getPointY());
+	this->n2 = v2.normalVector().normalizeVector();
+
+	v3.setVectorX(p3.getPointX() - p1.getPointX());
+	v3.setVectorY(p3.getPointY() - p1.getPointY());
+	this->n3 = v3.normalVector().normalizeVector();
+}
+
+PV2D Triangle::getP1(){
+	return this->p1;
+}
+
+PV2D Triangle::getP2(){
+	return this->p2;
+}
+
+PV2D Triangle::getP3(){
+	return this->p3;
+}
+
+//Only use for intersection. CHAPUZA
+PV2D Triangle::getP(int i){
+	switch(i){
+		case 0:
+			return this->p1;
+		case 1:
+			return this->p2;
+		case 2:
+			return this->p3;
+	}
 }
 
 void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
@@ -33,5 +87,30 @@ void Triangle::drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yB
 }
 
 bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){
+	GLfloat dist[3], proj[3], sign[3];
+	//Compute the vectors dist, proj and sign
+	for(int i=0; i<3; i++){
+		PV2D w;
+		w.setVectorX(this->getP(i).getPointX() - p.getPointX());
+		w.setVectorY(this->getP(i).getPointY() - p.getPointY());
+		dist[i] = w.dot(v.normalVector());
+		proj[i] = w.dot(v);
+		if(dist[i] > 0) sign[i] = 1;
+		else if(dist[i] == 0) sign[i] = 0;
+		else sign[i] = -1;
+	}
+
+	int sum = sign[0] + sign[1] + sign[2];
+	if(abs(sum) == 3) return false; // Trivial failure
+	int nHits = 0; double hit[3]; PV2D n[3]; // For recording tHits and normals
+
+	for(int i=0; i<3; i++){
+		int j = (i+1) % 3; //Intersections edge-line
+		if((sign[i]*sign[j]) < 0){
+			// Compute numerator
+			// Compute denominator
+		}
+	}
+
 	return true;
 }
