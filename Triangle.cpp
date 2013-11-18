@@ -57,7 +57,7 @@ PV2D Triangle::getP3(){
 	return this->p3;
 }
 
-//Only use for intersection. CHAPUZA
+//Only used for intersection. CHAPUZA
 PV2D Triangle::getP(int i){
 	switch(i){
 		case 0:
@@ -66,6 +66,18 @@ PV2D Triangle::getP(int i){
 			return this->p2;
 		case 2:
 			return this->p3;
+	}
+}
+
+//Only used for intersection. CHAPUZA
+PV2D Triangle::getN(int i){
+	switch(i){
+		case 0:
+			return this->n1;
+		case 1:
+			return this->n2;
+		case 2:
+			return this->n3;
 	}
 }
 
@@ -108,7 +120,19 @@ bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){
 		int j = (i+1) % 3; //Intersections edge-line
 		if((sign[i]*sign[j]) < 0){
 			// Compute numerator
+			double numerator = (proj[i] * dist[j]) - (dist[i] * proj[j]); 
 			// Compute denominator
+			double denominator = dist[j] - dist[i];
+			hit[nHits] = numerator/denominator;
+			n[nHits] = this->getN(i);
+			nHits++;
+		}
+	}
+
+	if(nHits < 2){ //Intersections vertex-line
+		for(int i=0; i<3 && sign[i]==0; i++){
+			hit[nHits] = proj[i];
+			//TODO
 		}
 	}
 

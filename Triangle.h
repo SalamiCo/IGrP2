@@ -16,6 +16,7 @@ class Triangle : public Obstacle {
 		PV2D getP2();
 		PV2D getP3();
 		PV2D getP(int i);
+		PV2D getN(int i);
 		void drawTriangle(PV2D p1, PV2D p2, PV2D p3);
 		void drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot);
 		virtual bool intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn);
