@@ -1,6 +1,6 @@
 object GLForm2D: TGLForm2D
-  Left = 214
-  Top = 112
+  Left = 244
+  Top = 223
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Formulario Principal'

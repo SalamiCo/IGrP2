@@ -6,7 +6,7 @@
 
 #include "Obstacle.h"
 
-class Triangle : public Obstacle{
+class Triangle : public Obstacle {
 	private:
 		PV2D p1,p2,p3;
 	public:

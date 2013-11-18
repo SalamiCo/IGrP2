@@ -9,6 +9,7 @@ USE("Ball.h", File);
 USEUNIT("Pencil.cpp");
 USE("Pencil.h", File);
 USEUNIT("PV2D.cpp");
+USEUNIT("Triangle.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
