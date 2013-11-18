@@ -132,9 +132,24 @@ bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){
 	if(nHits < 2){ //Intersections vertex-line
 		for(int i=0; i<3 && sign[i]==0; i++){
 			hit[nHits] = proj[i];
-			//TODO
+			//TODO n[nHits] = vector from triangle's center to vertex
+			nHits++; 
 		}
 	}
 
+	int m = minimum(hit);
+	tIn = hit[m];
+	normalIn = n[m];
+
 	return true;
+}
+
+double Triangle::minimum(double hit[]){
+	double minimum = hit[0];
+
+	for(int i=1;i<3;i++){
+		if(hit[i] < minimum) minimum = hit[i];
+	}
+
+	return minimum;
 }
