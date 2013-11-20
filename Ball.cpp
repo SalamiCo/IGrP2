@@ -6,14 +6,15 @@
 Ball::Ball(){
 	// To calculate the edge size using radius => edge = 2 * radius * sin(0.157079)
 	Pencil pen;
+	GLfloat centerX=0, centerY=0;
 	// Center
-	center = PV2D(0, 0);
+	center = PV2D(centerX, centerY);
 	// Radius
-	radius = 25;
+	radius = 2;
 	numSides = 20;
 	GLfloat edge = 2 * radius * sin(0.157079);
 
-	PV2D p1 = PV2D(edge/2, -radius);
+	PV2D p1 = PV2D(centerX+edge/2, centerY-radius);
 
 	// Generate the ball
 	vertex.push_back(p1);
@@ -30,14 +31,16 @@ Ball::Ball(){
 	}
 
 	// Movement vector
-	int randomX, randomY;
+	/*int randomX, randomY;
 	// initialize random seed
   	srand (time(NULL));
   	// Random number between -3 and 3 (creo...)
 	randomX = rand() % 3 - 1;
 	randomY = rand() % 3 - 1;
 	vectorMov.setVectorX((GLfloat) randomX);
-	vectorMov.setVectorY((GLfloat) randomY);
+	vectorMov.setVectorY((GLfloat) randomY);*/
+	vectorMov.setVectorX(1);
+	vectorMov.setVectorY(0);
 }
 
 PV2D Ball::getCenter(){
@@ -57,6 +60,7 @@ void Ball::drawBall(){
 		glColor3f(0.0, 1.0, 0.0);
 		glVertex2f(it->getPointX(), it->getPointY());
 	}
+	glColor3f(1.0,1.0,0.0);
 	glVertex2f(center.getPointX(), center.getPointY());	
 	glEnd();
 }

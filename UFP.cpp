@@ -136,8 +136,9 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
             bool exito = false;
 
             for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
-                if((*i).intersection2Ball(ball.getCenter(), ball.getV(), tIn, normalIn)){
+                if(i->intersection2Ball(ball.getCenter(), ball.getV().normalizeVector(), tIn, normalIn)){
                     if(tIn>0.1 && tIn<=1){
+                        ShowMessage("A DADO!");
                         if(tIn < tHitMin){
                             tHitMin = tIn;
                             normalHit = normalIn;
@@ -147,7 +148,9 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
                 }
             }
 
-            if(exito) ball.step(tHitMin);
+            if(exito){
+              ball.step(tHitMin);  
+            } 
             else ball.step(1.0);
             break;
     };
