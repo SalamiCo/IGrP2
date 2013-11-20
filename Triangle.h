@@ -12,6 +12,7 @@ class Triangle : public Obstacle {
 		PV2D getP(int i);
 		PV2D getN(int i);
 		int minimum(double hit[], int nHits);
+		PV2D vectorFromCenter(PV2D p);
 		PV2D triangleCenter(PV2D p1, PV2D p2, PV2D p3);
 	public:
 		Triangle();

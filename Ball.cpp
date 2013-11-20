@@ -31,16 +31,16 @@ Ball::Ball(){
 	}
 
 	// Movement vector
-	/*int randomX, randomY;
+	int randomX, randomY;
 	// initialize random seed
   	srand (time(NULL));
-  	// Random number between -3 and 3 (creo...)
-	randomX = rand() % 3 - 1;
-	randomY = rand() % 3 - 1;
+  	// Random number between -4 and 4 (creo...)
+	/*randomX = rand() % 4 - 1;
+	randomY = rand() % 4 - 1;
 	vectorMov.setVectorX((GLfloat) randomX);
 	vectorMov.setVectorY((GLfloat) randomY);*/
-	vectorMov.setVectorX(1);
-	vectorMov.setVectorY(0);
+	vectorMov.setVectorX(2);
+	vectorMov.setVectorY(1);
 }
 
 PV2D Ball::getCenter(){
@@ -75,4 +75,12 @@ void Ball::step(double t){
 	}
 	center.setPointX(center.getPointX() + t * vectorMov.getVectorX());
 	center.setPointY(center.getPointY() + t * vectorMov.getVectorY());
+}
+
+void Ball::rebound(PV2D normal){
+	//r = v - 2an
+	std::vector<GLfloat> ab = vectorMov.vectorDecomposition(vectorMov,normal);
+
+	vectorMov.setVectorX(vectorMov.getVectorX() - 2 * ab.at(0) * normal.getVectorX());
+	vectorMov.setVectorY(vectorMov.getVectorY() - 2 * ab.at(0) * normal.getVectorY());
 }

@@ -149,7 +149,8 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
             }
 
             if(exito){
-              ball.step(tHitMin);  
+              ball.step(tHitMin);
+              ball.rebound(normalHit);  
             } 
             else ball.step(1.0);
             break;

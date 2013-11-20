@@ -29,6 +29,7 @@ class Ball{
         PV2D getV();
         void drawBall();
         void step(double t);
+        void rebound(PV2D normal);
 };
 
 #endif
