@@ -153,21 +153,25 @@ bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){
 		}
 	}*/
 
-	int m = minimum(hit);
+	int m = minimum(hit, nHits);
 	tIn = hit[m];
 	normalIn = n[m];
 
 	return true;
 }
 
-double Triangle::minimum(double hit[]){
+int Triangle::minimum(double hit[], int nHits){
 	double minimum = hit[0];
+	int index = 0;
 
-	for(int i=1;i<3;i++){
-		if(hit[i] < minimum) minimum = hit[i];
+	for(int i=1;i<nHits;i++){
+		if(hit[i] < minimum){
+			minimum = hit[i];
+			index = i;
+		} 
 	}
 
-	return minimum;
+	return index;
 }
 
 /*PV2D Triangle::vectorFromCenter(PV2D p){
