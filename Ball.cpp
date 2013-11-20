@@ -32,11 +32,13 @@ Ball::Ball(){
 
 	// Movement vector
 	int randomX, randomY;
-	// initialize random seed
-  	srand (time(NULL));
-  	// Random number between -4 and 4 (creo...)
-	/*randomX = rand() % 4 - 1;
-	randomY = rand() % 4 - 1;
+	/*do{
+		// initialize random seed
+	  	srand (time(NULL));
+	  	// Random number between -4 and 4 (creo...)
+		randomX = rand() % 4 - 1;
+		randomY = rand() % 4 - 1;
+	} while (randomX == 0 && randomY == 0);
 	vectorMov.setVectorX((GLfloat) randomX);
 	vectorMov.setVectorY((GLfloat) randomY);*/
 	vectorMov.setVectorX(2);
