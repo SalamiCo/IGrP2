@@ -89,6 +89,8 @@ PV2D Triangle::getN(int i){
 }
 
 void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
+	
+	glColor3f(0.38, 0.19, 0.0);
 	glBegin(GL_TRIANGLES);
 		glVertex2f(p1.getPointX(), p1.getPointY());
 		glVertex2f(p2.getPointX(), p2.getPointY());
@@ -96,7 +98,7 @@ void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
 	glEnd();
 } 
 
-void Triangle::drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot){
+void Triangle::drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot){	
 	Triangle tR = Triangle(PV2D(xRight-30, yTop+20), PV2D(xRight-30, yBot-20), PV2D(xRight+300, yBot-20));
 	Triangle tT = Triangle(PV2D(xLeft-20, yTop-30), PV2D(xRight+20, yTop-30), PV2D(xRight+20, yTop+450));
 	Triangle tL = Triangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));

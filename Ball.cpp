@@ -6,11 +6,10 @@
 Ball::Ball(){
 	// To calculate the edge size using radius => edge = 2 * radius * sin(0.157079)
 	Pencil pen;
-	//GLfloat edge = 15.64;
 	// Center
 	center = PV2D(0, 0);
 	// Radius
-	radius = 50;
+	radius = 25;
 	numSides = 20;
 	GLfloat edge = 2 * radius * sin(0.157079);
 
@@ -47,10 +46,9 @@ void Ball::drawBall(){
 
 	glBegin(GL_POLYGON);
 	for (int i=1; i<=numSides; ++i, ++it){
-		glColor3f(1.0, 1.0, 0.0);
+		glColor3f(0.0, 1.0, 0.0);
 		glVertex2f(it->getPointX(), it->getPointY());
 	}
-	glColor3f(0.38, 0.19, 0.0);
 	glVertex2f(center.getPointX(), center.getPointY());	
 	glEnd();
 }
