@@ -94,7 +94,7 @@ void __fastcall TGLForm2D::GLScene()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    tWalls.drawWalls(xRight,xLeft,yTop,yBot);
+    Triangle::drawWalls(xRight,xLeft,yTop,yBot);
     ball.drawBall();
 
     glFlush();

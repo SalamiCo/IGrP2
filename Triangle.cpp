@@ -60,28 +60,32 @@ PV2D Triangle::getP3(){
 	return this->p3;
 }
 
-//Only used for intersection. CHAPUZA
+//Only used for intersection.
 PV2D Triangle::getP(int i){
+	PV2D p;
 	switch(i){
 		case 0:
-			return this->p1;
+			p = this->p1;
 		case 1:
-			return this->p2;
+			p = this->p2;
 		case 2:
-			return this->p3;
+			p = this->p3;
 	}
+	return p;
 }
 
-//Only used for intersection. CHAPUZA
+//Only used for intersection.
 PV2D Triangle::getN(int i){
+	PV2D n;
 	switch(i){
 		case 0:
-			return this->n1;
+			n = this->n1;
 		case 1:
-			return this->n2;
+			n = this->n2;
 		case 2:
-			return this->n3;
+			n = this->n3;
 	}
+	return n;
 }
 
 void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
@@ -93,12 +97,15 @@ void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
 } 
 
 void Triangle::drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot){
-	Triangle tR, tT, tL, tB;
+	Triangle tR = Triangle(PV2D(xRight-30, yTop+20), PV2D(xRight-30, yBot-20), PV2D(xRight+300, yBot-20));
+	Triangle tT = Triangle(PV2D(xLeft-20, yTop-30), PV2D(xRight+20, yTop-30), PV2D(xRight+20, yTop+450));
+	Triangle tL = Triangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));
+	Triangle tB = Triangle(PV2D(xRight+20, yBot+30), PV2D(xLeft-20, yBot+30), PV2D(xLeft-20, yBot-450));
 
-	tR.drawTriangle(PV2D(xRight-30, yTop+20), PV2D(xRight-30, yBot-20), PV2D(xRight+300, yBot-20));
-    tT.drawTriangle(PV2D(xLeft-20, yTop-30), PV2D(xRight+20, yTop-30), PV2D(xRight+20, yTop+450));
-    tL.drawTriangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));
-    tB.drawTriangle(PV2D(xRight+20, yBot+30), PV2D(xLeft-20, yBot+30), PV2D(xLeft-20, yBot-450));
+	drawTriangle(tR.getP1(), tR.getP2(), tR.getP3());
+    drawTriangle(tT.getP1(), tT.getP2(), tT.getP3());
+    drawTriangle(tL.getP1(), tL.getP2(), tL.getP3());
+    drawTriangle(tB.getP1(), tB.getP2(), tB.getP3());
 }
 
 bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){

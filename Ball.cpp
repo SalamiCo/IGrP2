@@ -6,12 +6,13 @@
 Ball::Ball(){
 	// To calculate the edge size using radius => edge = 2 * radius * sin(0.157079)
 	Pencil pen;
-	GLfloat edge = 15.64;
+	//GLfloat edge = 15.64;
 	// Center
 	center = PV2D(0, 0);
 	// Radius
 	radius = 50;
 	numSides = 20;
+	GLfloat edge = 2 * radius * sin(0.157079);
 
 	PV2D p1 = PV2D(edge/2, -radius);
 

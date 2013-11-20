@@ -34,7 +34,7 @@ class TGLForm2D : public TForm
 		// Ball
 		Ball ball;
 		//Walls
-		Triangle tWalls;
+		//Triangle tWalls;
  		void __fastcall SetPixelFormatDescriptor();
  		void __fastcall GLScene();
 
