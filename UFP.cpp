@@ -131,7 +131,7 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
         case 's':
             // Step
             std::vector<Triangle>::iterator i;
-            double tIn, tHitMin=3;
+            double tIn, tHitMin=2.6;
             PV2D normalIn, normalHit, vectorMov = ball.getV();
             bool exito = false;
 
