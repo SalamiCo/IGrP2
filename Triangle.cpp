@@ -3,7 +3,7 @@
 
 #include "Triangle.h"
 
-Triangle::Triangle(){
+/*Triangle::Triangle(){
 	PV2D v1,v2,v3;
 
 	this->p1 = PV2D();
@@ -22,7 +22,7 @@ Triangle::Triangle(){
 	v3.setVectorX(p3.getPointX() - p1.getPointX());
 	v3.setVectorY(p3.getPointY() - p1.getPointY());
 	this->n3 = v3.normalVector().normalizeVector();
-}
+}*/
 
 Triangle::Triangle(PV2D p1, PV2D p2, PV2D p3){
 	PV2D v1,v2,v3;
@@ -43,6 +43,9 @@ Triangle::Triangle(PV2D p1, PV2D p2, PV2D p3){
 	v3.setVectorX(p3.getPointX() - p1.getPointX());
 	v3.setVectorY(p3.getPointY() - p1.getPointY());
 	this->n3 = v3.normalVector().normalizeVector();
+
+	// Center
+	center = triangleCenter(p1, p2, p3);
 }
 
 PV2D Triangle::getP1(){
@@ -129,13 +132,15 @@ bool Triangle::intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn){
 		}
 	}
 
-	if(nHits < 2){ //Intersections vertex-line
+	/*if(nHits < 2){ //Intersections vertex-line
 		for(int i=0; i<3 && sign[i]==0; i++){
 			hit[nHits] = proj[i];
 			//TODO n[nHits] = vector from triangle's center to vertex
+			// E 1/3 Pi
+			n[nHits] = vectorFromCenter(this->getP(i));
 			nHits++; 
 		}
-	}
+	}*/
 
 	int m = minimum(hit);
 	tIn = hit[m];
@@ -152,4 +157,23 @@ double Triangle::minimum(double hit[]){
 	}
 
 	return minimum;
+}
+
+/*PV2D Triangle::vectorFromCenter(PV2D p){
+	PV2D vector;
+
+	vector.setVectorX(p.getPointX() - );
+}*/
+
+PV2D Triangle::triangleCenter(PV2D p1, PV2D p2, PV2D){
+	PV2D center;
+	double sumX, sumY;
+
+	sumX = 1/3 * (p1.getPointX() + p2.getPointX() + p3.getPointX());
+	sumY = 1/3 * (p1.getPointY() + p2.getPointY() + p3.getPointY());
+
+	center.setPointX(sumX);
+	center.setPointY(sumY);
+
+	return center;
 }
