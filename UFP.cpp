@@ -37,6 +37,15 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     RatioViewPort=1.0;
 
     // inicialización de las variables del programa
+    tR = Triangle(PV2D(xRight-30, yTop+20), PV2D(xRight-30, yBot-20), PV2D(xRight+300, yBot-20));
+    tT = Triangle(PV2D(xLeft-20, yTop-30), PV2D(xRight+20, yTop-30), PV2D(xRight+20, yTop+450));
+    tL = Triangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));
+    tB = Triangle(PV2D(xRight+20, yBot+30), PV2D(xLeft-20, yBot+30), PV2D(xLeft-20, yBot-450));
+
+    obstacleList.push_back(tR);
+    obstacleList.push_back(tT);
+    obstacleList.push_back(tL);
+    obstacleList.push_back(tB);
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::SetPixelFormatDescriptor()
@@ -94,7 +103,7 @@ void __fastcall TGLForm2D::GLScene()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    Triangle::drawWalls(xRight,xLeft,yTop,yBot);
+    Triangle::drawWalls(tR,tT,tL,tB);
     ball.drawBall();
 
     glFlush();
@@ -121,7 +130,25 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
     switch(Key){
         case 's':
             // Step
-            ball.step();
+            std::vector<Triangle>::iterator i;
+            double tIn, tHitMin=2;
+            PV2D normalIn, normalHit;
+            bool exito = false;
+
+            for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
+                if((*i).intersection2Ball(ball.getCenter(), ball.getV(), tIn, normalIn)){
+                    if(tIn>0.1 && tIn<=1){
+                        if(tIn < tHitMin){
+                            tHitMin = tIn;
+                            normalHit = normalIn;
+                            exito = true;
+                        }
+                    }
+                }
+            }
+
+            if(exito) ball.step(tHitMin);
+            else ball.step(1.0);
             break;
     };
 

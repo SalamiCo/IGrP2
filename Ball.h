@@ -25,8 +25,10 @@ class Ball{
     	PV2D vectorMov;
     public:
         Ball();
+        PV2D getCenter();
+        PV2D getV();
         void drawBall();
-        void step();
+        void step(double t);
 };
 
 #endif

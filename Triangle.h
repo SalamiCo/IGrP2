@@ -14,13 +14,13 @@ class Triangle : public Obstacle {
 		double minimum(double hit[]);
 		PV2D triangleCenter(PV2D p1, PV2D p2, PV2D p3);
 	public:
-		//Triangle();
+		Triangle();
 		Triangle(PV2D p1, PV2D p2, PV2D p3);
 		PV2D getP1();
 		PV2D getP2();
 		PV2D getP3();
 		void static drawTriangle(PV2D p1, PV2D p2, PV2D p3);
-		void static drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot);
+		void static drawWalls(Triangle tR, Triangle tT, Triangle tL, Triangle tB);
 
 		virtual bool intersection2Ball(PV2D p, PV2D v, double& tIn, PV2D& normalIn);
 };

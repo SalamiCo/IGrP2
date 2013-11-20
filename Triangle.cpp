@@ -3,7 +3,7 @@
 
 #include "Triangle.h"
 
-/*Triangle::Triangle(){
+Triangle::Triangle(){
 	PV2D v1,v2,v3;
 
 	this->p1 = PV2D();
@@ -11,7 +11,7 @@
 	this->p3 = PV2D();
 
 	// Normal vectors normalized
-	v1.setVectorX(p1.getPointX() - p2.getPointX());
+	/*v1.setVectorX(p1.getPointX() - p2.getPointX());
 	v1.setVectorY(p1.getPointY() - p2.getPointY());
 	this->n1 = v1.normalVector().normalizeVector();
 
@@ -21,8 +21,8 @@
 
 	v3.setVectorX(p3.getPointX() - p1.getPointX());
 	v3.setVectorY(p3.getPointY() - p1.getPointY());
-	this->n3 = v3.normalVector().normalizeVector();
-}*/
+	this->n3 = v3.normalVector().normalizeVector();*/
+}
 
 Triangle::Triangle(PV2D p1, PV2D p2, PV2D p3){
 	PV2D v1,v2,v3;
@@ -89,7 +89,7 @@ PV2D Triangle::getN(int i){
 }
 
 void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
-	
+
 	glColor3f(0.38, 0.19, 0.0);
 	glBegin(GL_TRIANGLES);
 		glVertex2f(p1.getPointX(), p1.getPointY());
@@ -98,11 +98,7 @@ void Triangle::drawTriangle(PV2D p1, PV2D p2, PV2D p3){
 	glEnd();
 } 
 
-void Triangle::drawWalls(GLfloat xRight, GLfloat xLeft, GLfloat yTop, GLfloat yBot){	
-	Triangle tR = Triangle(PV2D(xRight-30, yTop+20), PV2D(xRight-30, yBot-20), PV2D(xRight+300, yBot-20));
-	Triangle tT = Triangle(PV2D(xLeft-20, yTop-30), PV2D(xRight+20, yTop-30), PV2D(xRight+20, yTop+450));
-	Triangle tL = Triangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));
-	Triangle tB = Triangle(PV2D(xRight+20, yBot+30), PV2D(xLeft-20, yBot+30), PV2D(xLeft-20, yBot-450));
+void Triangle::drawWalls(Triangle tR, Triangle tT, Triangle tL, Triangle tB){	
 
 	drawTriangle(tR.getP1(), tR.getP2(), tR.getP3());
     drawTriangle(tT.getP1(), tT.getP2(), tT.getP3());

@@ -35,6 +35,10 @@ class TGLForm2D : public TForm
 		Ball ball;
 		//Walls
 		//Triangle tWalls;
+		Triangle tR, tT, tL, tB;
+		// Obstacle's list
+		std::vector<Triangle> obstacleList;
+
  		void __fastcall SetPixelFormatDescriptor();
  		void __fastcall GLScene();
 

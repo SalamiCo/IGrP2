@@ -40,6 +40,14 @@ Ball::Ball(){
 	vectorMov.setVectorY((GLfloat) randomY);
 }
 
+PV2D Ball::getCenter(){
+	return this->center;
+}
+
+PV2D Ball::getV(){
+	return this->vectorMov;
+}
+
 void Ball::drawBall(){
 	std::vector<PV2D>::iterator it;
 	it = vertex.begin();
@@ -53,14 +61,14 @@ void Ball::drawBall(){
 	glEnd();
 }
 
-void Ball::step(){
+void Ball::step(double t){
 	std::vector<PV2D>::iterator it;
 	it = vertex.begin();
 
 	for(int i=1;i<=numSides; ++i, ++it){
-		it->setPointX(it->getPointX() + vectorMov.getVectorX());
-		it->setPointY(it->getPointY() + vectorMov.getVectorY());
+		it->setPointX(it->getPointX() + t * vectorMov.getVectorX());
+		it->setPointY(it->getPointY() + t * vectorMov.getVectorY());
 	}
-	center.setPointX(center.getPointX() + vectorMov.getVectorX());
-	center.setPointY(center.getPointY() + vectorMov.getVectorY());
+	center.setPointX(center.getPointX() + t * vectorMov.getVectorX());
+	center.setPointY(center.getPointY() + t * vectorMov.getVectorY());
 }
