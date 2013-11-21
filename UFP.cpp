@@ -47,7 +47,8 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     obstacleList.push_back(tL);
     obstacleList.push_back(tB);
 
-    //obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
+    obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
+    obstacleList.push_back(Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60)));
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::SetPixelFormatDescriptor()
@@ -106,7 +107,8 @@ void __fastcall TGLForm2D::GLScene()
     glClear(GL_COLOR_BUFFER_BIT);
 
     Triangle::drawWalls(tR,tT,tL,tB);
-    //Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
+    Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
+    Triangle::drawTriangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60));
     ball.drawBall();
 
     glFlush();
