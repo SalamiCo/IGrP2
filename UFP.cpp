@@ -131,13 +131,13 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
         case 's':
             // Step
             std::vector<Triangle>::iterator i;
-            double tIn, tHitMin=2.6;
             PV2D normalIn, normalHit, vectorMov = ball.getV();
+            double tIn, tHitMin=vectorMov.vectorModule() + 0.3;
             bool exito = false;
 
             for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
                 if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
-                    if(tIn>(0.1*vectorMov.vectorModule()) && tIn<=(1*vectorMov.vectorModule())){
+                    if(tIn>0.1 && tIn<=(1*vectorMov.vectorModule())){
                         //ShowMessage("A DADO!");
                         if(tIn < tHitMin){
                             tHitMin = tIn;

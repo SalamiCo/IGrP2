@@ -41,8 +41,8 @@ Ball::Ball(){
 	} while (randomX == 0 && randomY == 0);
 	vectorMov.setVectorX((GLfloat) randomX);
 	vectorMov.setVectorY((GLfloat) randomY);*/
-	vectorMov.setVectorX(-2);
-	vectorMov.setVectorY(-1);
+	vectorMov.setVectorX(-3);
+	vectorMov.setVectorY(-2);
 }
 
 PV2D Ball::getCenter(){
