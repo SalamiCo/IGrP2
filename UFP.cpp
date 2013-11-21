@@ -46,6 +46,8 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     obstacleList.push_back(tT);
     obstacleList.push_back(tL);
     obstacleList.push_back(tB);
+
+    //obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::SetPixelFormatDescriptor()
@@ -104,6 +106,7 @@ void __fastcall TGLForm2D::GLScene()
     glClear(GL_COLOR_BUFFER_BIT);
 
     Triangle::drawWalls(tR,tT,tL,tB);
+    //Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
     ball.drawBall();
 
     glFlush();
@@ -132,12 +135,12 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
             // Step
             std::vector<Triangle>::iterator i;
             PV2D normalIn, normalHit, vectorMov = ball.getV();
-            double tIn, tHitMin=vectorMov.vectorModule() + 0.3;
+            double tIn, tHitMin=vectorMov.vectorModule() + 0.5;
             bool exito = false;
 
             for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
                 if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
-                    if(tIn>0.1 && tIn<=(1*vectorMov.vectorModule())){
+                    if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
                         //ShowMessage("A DADO!");
                         if(tIn < tHitMin){
                             tHitMin = tIn;
