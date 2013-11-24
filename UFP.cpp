@@ -47,8 +47,9 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     obstacleList.push_back(tL);
     obstacleList.push_back(tB);
 
-    obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
-    obstacleList.push_back(Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60)));
+    //obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
+    //obstacleList.push_back(Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60)));
+    obstacleList1.push_back(c1);
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::SetPixelFormatDescriptor()
@@ -107,8 +108,10 @@ void __fastcall TGLForm2D::GLScene()
     glClear(GL_COLOR_BUFFER_BIT);
 
     Triangle::drawWalls(tR,tT,tL,tB);
-    Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
-    Triangle::drawTriangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60));
+    //Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
+    //Triangle::drawTriangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60));
+    c1.drawCircle();
+
     ball.drawBall();
 
     glFlush();
@@ -142,6 +145,20 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
 
             for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
                 if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
+                    if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
+                        //ShowMessage("A DADO!");
+                        if(tIn < tHitMin){
+                            tHitMin = tIn;
+                            normalHit = normalIn;
+                            exito = true;
+                        }
+                    }
+                }
+            }
+            std::vector<Circle>::iterator it;
+            tHitMin=vectorMov.vectorModule() + 0.5;
+            for(it=obstacleList1.begin(); it!=obstacleList1.end(); ++it){
+                if(it->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
                     if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
                         //ShowMessage("A DADO!");
                         if(tIn < tHitMin){

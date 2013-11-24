@@ -13,6 +13,7 @@
 
 #include "Ball.h"
 #include "Triangle.h"
+#include "Circle.h"
 
 //---------------------------------------------------------------------------
 class TGLForm2D : public TForm
@@ -38,6 +39,9 @@ class TGLForm2D : public TForm
 		Triangle tR, tT, tL, tB;
 		// Obstacle's list
 		std::vector<Triangle> obstacleList;
+		//Circles
+		Circle c1;
+		std::vector<Circle> obstacleList1;
 
  		void __fastcall SetPixelFormatDescriptor();
  		void __fastcall GLScene();
