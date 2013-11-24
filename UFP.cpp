@@ -49,6 +49,10 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
 
     obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
     obstacleList.push_back(Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60)));
+
+    //Set timer properties
+    Timer->Enabled = false;
+    Timer->Interval = 1;
 }
 //---------------------------------------------------------------------------
 void __fastcall TGLForm2D::SetPixelFormatDescriptor()
@@ -133,31 +137,27 @@ void __fastcall TGLForm2D::FormDestroy(TObject *Sender)
 void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
 {
     switch(Key){
+        //Manual step
         case 's':
-            // Step
-            std::vector<Triangle>::iterator i;
-            PV2D normalIn, normalHit, vectorMov = ball.getV();
-            double tIn, tHitMin=vectorMov.vectorModule() + 0.5;
-            bool exito = false;
-
-            for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
-                if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
-                    if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
-                        //ShowMessage("A DADO!");
-                        if(tIn < tHitMin){
-                            tHitMin = tIn;
-                            normalHit = normalIn;
-                            exito = true;
-                        }
-                    }
-                }
+            Step();
+            break;
+        //Timer step
+        case 't':
+            if(Timer->Enabled){
+                Timer->Enabled = false;
+            } else {
+                Timer->Enabled = true;
             }
-
-            if(exito){
-              ball.step(tHitMin);
-              ball.rebound(normalHit);  
-            } 
-            else ball.step(1.0);
+            break;
+        //Change timer interval
+        case '1':
+            Timer->Interval = 100;
+            break;
+        case '2':
+            Timer->Interval = 50;
+            break;
+        case '3':
+            Timer->Interval = 1;
             break;
     };
 
@@ -171,3 +171,46 @@ void __fastcall TGLForm2D::FormKeyPress(TObject *Sender, char &Key)
 }
 //---------------------------------------------------------------------------
 
+
+
+void __fastcall TGLForm2D::TimerTimer(TObject *Sender)
+{
+    Step();
+}
+//---------------------------------------------------------------------------
+
+void TGLForm2D::Step(){
+    // Step
+    std::vector<Triangle>::iterator i;
+    PV2D normalIn, normalHit, vectorMov = ball.getV();
+    double tIn, tHitMin=vectorMov.vectorModule() + 0.5;
+    bool exito = false;
+
+    for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
+        if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
+            if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
+                //ShowMessage("A DADO!");
+                if(tIn < tHitMin){
+                    tHitMin = tIn;
+                    normalHit = normalIn;
+                    exito = true;
+                }
+            }
+        }
+    }
+
+    if(exito){
+        ball.step(tHitMin);
+        ball.rebound(normalHit);  
+    } else {
+        ball.step(1.0);
+    }
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(xLeft,xRight,yBot,yTop);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    GLScene();
+}
