@@ -3,7 +3,7 @@ object GLForm2D: TGLForm2D
   Top = 165
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Formulario Principal'
+  Caption = 'IGrP2'
   ClientHeight = 496
   ClientWidth = 800
   Color = clBtnFace
@@ -20,4 +20,11 @@ object GLForm2D: TGLForm2D
   OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
+  object Timer: TTimer
+    Enabled = False
+    Interval = 50
+    OnTimer = TimerTimer
+    Left = 16
+    Top = 16
+  end
 end
