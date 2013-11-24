@@ -42,15 +42,23 @@ void __fastcall TGLForm2D::FormCreate(TObject *Sender)
     tL = Triangle(PV2D(xLeft+30, yBot-20), PV2D(xLeft+30, yTop+20), PV2D(xLeft-300, yTop+20));
     tB = Triangle(PV2D(xRight+20, yBot+30), PV2D(xLeft-20, yBot+30), PV2D(xLeft-20, yBot-450));
 
-    obstacleList.push_back(tR);
-    obstacleList.push_back(tT);
-    obstacleList.push_back(tL);
-    obstacleList.push_back(tB);
+    //obstacleList.push_back(tR);
+    //obstacleList.push_back(tT);
+    //obstacleList.push_back(tL);
+    //obstacleList.push_back(tB);
 
-    //obstacleList.push_back(Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60)));
-    //obstacleList.push_back(Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60)));
-    obstacleList1.push_back(c1);
+    t1 = Triangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
+    t2 = Triangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60));
+    //obstacleList1.push_back(c1);
 
+    obstacles[0] = tR;
+    obstacles[1] = tT;
+    obstacles[2] = tL;
+    obstacles[3] = tB;
+    obstacles[4] = t1;
+    obstacles[5] = t2;
+    obstacles[6] = c1;
+    obstacles[7] = c2;
 
     //Set timer properties
     Timer->Enabled = false;
@@ -113,9 +121,9 @@ void __fastcall TGLForm2D::GLScene()
     glClear(GL_COLOR_BUFFER_BIT);
 
     Triangle::drawWalls(tR,tT,tL,tB);
-    //Triangle::drawTriangle(PV2D(100, 0), PV2D(100, 100), PV2D(60, 60));
-    //Triangle::drawTriangle(PV2D(-100, 0), PV2D(-100, -100), PV2D(-60, -60));
-    c1.drawCircle();
+    Triangle::drawTriangle(t1.getP1(), t1.getP2(), t1.getP3());
+    Triangle::drawTriangle(t2.getP1(), t2.getP2(), t2.getP3());
+    //c1.drawCircle();
 
     ball.drawBall();
 
@@ -184,13 +192,27 @@ void __fastcall TGLForm2D::TimerTimer(TObject *Sender)
 //---------------------------------------------------------------------------
 
 void TGLForm2D::Step(){
+    Timer->Enabled = false;
     // Step
-    std::vector<Triangle>::iterator i;
+    //std::vector<Triangle>::iterator i;
     PV2D normalIn, normalHit, vectorMov = ball.getV();
     double tIn, tHitMin=vectorMov.vectorModule() + 0.5;
     bool exito = false;
 
-    for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
+    for(int i = 0; i <= 7; i++){
+        if(obstacles[i].intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
+            if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
+                //ShowMessage("A DADO!");
+                if(tIn < tHitMin){
+                    tHitMin = tIn;
+                    normalHit = normalIn;
+                    exito = true;
+                }
+            }
+        }
+    }
+
+    /*for(i=obstacleList.begin(); i!=obstacleList.end(); ++i){
         if(i->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
             if(tIn>0.005 && tIn<=(1*vectorMov.vectorModule())){
                 //ShowMessage("A DADO!");
@@ -216,7 +238,7 @@ void TGLForm2D::Step(){
                 }
             }
         }
-    }
+    }*/
 
     if(exito){
         ball.step(tHitMin);
@@ -232,4 +254,6 @@ void TGLForm2D::Step(){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     GLScene();
+
+    Timer->Enabled = true;
 }
