@@ -32,7 +32,7 @@ Ball::Ball(){
 
 	// Movement vector
 	int randomX, randomY;
-	do{
+	/*do{
 		// initialize random seed
 	  	srand (time(NULL));
 	  	// Random number between -4 and 4 (creo...)
@@ -40,9 +40,9 @@ Ball::Ball(){
 		randomY = rand() % 4 - 3;
 	} while (randomX == 0 && randomY == 0);
 	vectorMov.setVectorX((GLfloat) randomX);
-	vectorMov.setVectorY((GLfloat) randomY);
-	//vectorMov.setVectorX(3);
-	//vectorMov.setVectorY(-1);
+	vectorMov.setVectorY((GLfloat) randomY);*/
+	vectorMov.setVectorX(-2);
+	vectorMov.setVectorY(-2);
 }
 
 PV2D Ball::getCenter(){

@@ -205,7 +205,7 @@ void TGLForm2D::Step(){
 
     for(int i = 0; i <= 7; i++){
         if(obstacles[i]->intersection2Ball(ball.getCenter(), vectorMov.normalizeVector(), tIn, normalIn)){
-            if(tIn>0 && tIn<=(1*vectorMov.vectorModule())){
+            if(tIn>0 && tIn<=(1*vectorMov.vectorModule()+0.01)){
                 if(tIn < tHitMin){
                     tHitMin = tIn;
                     normalHit = normalIn;
