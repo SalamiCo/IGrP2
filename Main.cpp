@@ -10,6 +10,7 @@ USEUNIT("Pencil.cpp");
 USE("Pencil.h", File);
 USEUNIT("PV2D.cpp");
 USEUNIT("Triangle.cpp");
+USEUNIT("Circle.cpp");
 //---------------------------------------------------------------------------
 WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
